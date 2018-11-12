@@ -1,4 +1,4 @@
-cabal-version: 2.4
+cabal-version: 2.2
 name: impl
 homepage: https://github.com/exordium/impl#readme
 version: 0.1.0.0
@@ -27,9 +27,15 @@ library
   build-depends: template-haskell ^>= 2.14.0.0
                , named ^>= 0.2.0.0
 
+Flag DumpExample
+  Description: Show generated TH in example
+  Default: False
+  Manual: True
+
 library example
   import: x
   hs-source-dirs: example
   exposed-modules: Monad.Impl, Monad.Foo
-  ghc-options: -ddump-splices -dsuppress-uniques
+  if flag(DumpExample)
+    ghc-options: -ddump-splices -dsuppress-uniques
   build-depends: impl
